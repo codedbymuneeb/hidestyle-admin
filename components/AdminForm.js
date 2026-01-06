@@ -8,6 +8,7 @@ export default function AdminForm({ product = {}, isEdit = false }) {
         name: product.name || "",
         category: product.category || "",
         price: product.price || 0,
+        oldPrice: product.oldPrice || 0,
         description: product.description || "",
         stock: product.stock || 0,
         featured: product.featured || false,

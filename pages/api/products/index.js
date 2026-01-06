@@ -7,7 +7,17 @@ export default async function handler(req, res) {
 
     switch (method) {
         case "GET":
-            const products = await Product.find({});
+            const { category, sort } = req.query;
+            let filter = {};
+            if (category) filter.category = category;
+
+            let sortOptions = { createdAt: -1 };
+            if (sort === "price-asc") sortOptions = { price: 1 };
+            if (sort === "price-desc") sortOptions = { price: -1 };
+            if (sort === "newest") sortOptions = { createdAt: -1 };
+            if (sort === "featured") sortOptions = { featured: -1 };
+
+            const products = await Product.find(filter).sort(sortOptions);
             res.status(200).json(products);
             break;
 
